@@ -6,8 +6,8 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
 
-	url(r'^accounts/', include('registration.backends.default.urls')),
-	url(r'^upload/', include('fileupload.urls')),
+	url(r'^accounts/', include('registration.backends.simple.urls')),
+	url(r'^upload/', include('mysite.fileupload.urls')),
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),

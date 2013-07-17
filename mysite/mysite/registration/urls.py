@@ -12,4 +12,4 @@ import warnings
 warnings.warn("include('registration.urls') is deprecated; use include('registration.backends.default.urls') instead.",
               DeprecationWarning)
 
-from registration.backends.default.urls import *
+from registration.backends.simple.urls import *
