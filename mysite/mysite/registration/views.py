@@ -138,5 +138,5 @@ class ActivationView(TemplateView):
         """
         raise NotImplementedError
 
-    # def get_success_url(self, request, user):
-    #     raise NotImplementedError
+    def get_success_url(self, request, user):
+        raise NotImplementedError
