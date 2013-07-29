@@ -1,7 +1,5 @@
 # Django settings for mysite project.
 
-import os
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -67,7 +65,7 @@ STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = ''
+STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -118,6 +116,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     "/home/kevin/Dropbox/work/wordseer/wseer/mysite/mysite/registration/templates"
+    "
 )
 
 INSTALLED_APPS = (

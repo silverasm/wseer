@@ -8,6 +8,7 @@ urlpatterns = patterns('',
 
 	url(r'^accounts/', include('registration.backends.default.urls')),
 	url(r'^upload/', include('fileupload.urls')),
+
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),
