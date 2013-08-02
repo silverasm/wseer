@@ -1,0 +1,4 @@
+Welcome, user!
+<br>
+<input type=button onClick="/upload/new/" value='New Project'>
+<button type="button">Delete Project</button>

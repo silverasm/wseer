@@ -1,0 +1,7 @@
+from django.http import HttpResponse
+
+def newProject(request):
+	return HttpResponseRedirect("/upload/new/")
+
+def manager(request):
+	return HttpResponse("Hello, world. You're at the poll index.")
