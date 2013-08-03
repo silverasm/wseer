@@ -15,7 +15,7 @@ class MyRegistrationView(RegistrationView):
         return "/upload/" + user.get_absolute_url()
 
 urlpatterns = patterns('',
-	(r'^(P?<user_name>\w)/$',PictureCreateView.as_view(), {}, 'upload-new'),
+	# (r"^(?P<username>\w+)/$", PictureCreateView.as_view(), {}, 'upload-new'),
 	# (r'^/$'+user.get_absolute_url(),PictureCreateView.as_view(), {}, 'upload-new'),
     (r'^new/$', PictureCreateView.as_view(), {}, 'upload-new'),
     (r'^delete/(?P<pk>\d+)$', PictureDeleteView.as_view(), {}, 'upload-delete'),
