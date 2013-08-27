@@ -8,8 +8,8 @@ from registration.backends.simple.views import RegistrationView
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
-        # return "/upload/new"
-        return "/upload/" + user.get_absolute_url()
+         return "/upload/new"
+        # return "/upload/" + user.get_absolute_url()
 
 urlpatterns = patterns('',
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
