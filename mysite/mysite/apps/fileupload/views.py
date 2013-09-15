@@ -1,4 +1,4 @@
-from mysite.fileupload.models import UploadedFile
+from mysite.apps.fileupload.models import UploadedFile
 from django.views.generic import CreateView, DeleteView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect

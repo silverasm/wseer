@@ -12,17 +12,8 @@ class MyRegistrationView(RegistrationView):
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
-	url(r'^accounts/', include('registration.backends.simple.urls')),
-	url(r'^upload/', include('mysite.fileupload.urls')),
-    # Examples:
-    # url(r'^$', 'mysite.views.home', name='home'),
-    # url(r'^mysite/', include('mysite.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+	url(r'^accounts/', include('mysite.apps.registration.backends.simple.urls')),
+	url(r'^upload/', include('mysite.apps.fileupload.urls')),
 )
 
 import os

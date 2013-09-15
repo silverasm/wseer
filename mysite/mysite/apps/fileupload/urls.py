@@ -1,14 +1,14 @@
 from django.conf.urls import patterns, include, url
-from mysite.fileupload.views import (UploadedFileCreateView,
+from mysite.apps.fileupload.views import (UploadedFileCreateView,
     UploadedFileDeleteView)
-from mysite.registration.backends.simple.views import RegistrationView
+from mysite.apps.registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 
-from mysite.registration import signals
-from mysite.registration.views import RegistrationView as BaseRegistrationView
+from mysite.apps.registration import signals
+from mysite.apps.registration.views import RegistrationView as BaseRegistrationView
 
 class MyRegistrationView(RegistrationView):
     def get_success_url(self, request, user):
