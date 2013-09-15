@@ -46,14 +46,14 @@
     </div>
 
     <div>
-        {% if pictures %}
+        {% if files %}
         <h2>Already uploaded</h2>
         <table class="table table-striped">
-            {% for picture in pictures %}
+            {% for file in files %}
             <tr>
-                <td class="name">{{ picture.slug }}</td>
+                <td class="name">{{ file.slug }}</td>
                 <td class="delete">
-                    <a class="btn btn-danger" href="{% url 'upload-delete' picture.id %}">
+                    <a class="btn btn-danger" href="{% url 'upload-delete' file.id %}">
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>

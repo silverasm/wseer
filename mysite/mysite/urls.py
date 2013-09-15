@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, include, url
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+admin.autodiscover()
 
 from registration.backends.simple.views import RegistrationView
 
@@ -12,6 +10,7 @@ class MyRegistrationView(RegistrationView):
         # return "/upload/" + user.get_absolute_url()
 
 urlpatterns = patterns('',
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/register/$', MyRegistrationView.as_view(), name='registration_register'),
 	url(r'^accounts/', include('registration.backends.simple.urls')),
 	url(r'^upload/', include('mysite.fileupload.urls')),

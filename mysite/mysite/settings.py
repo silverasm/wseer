@@ -134,10 +134,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'registration',
     'mysite.fileupload',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7

@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from mysite.fileupload.views import PictureCreateView, PictureDeleteView
+from mysite.fileupload.views import (UploadedFileCreateView,
+    UploadedFileDeleteView)
 from mysite.registration.backends.simple.views import RegistrationView
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -17,7 +18,9 @@ class MyRegistrationView(RegistrationView):
 urlpatterns = patterns('',
 	# (r"^(?P<username>\w+)/$", PictureCreateView.as_view(), {}, 'upload-new'),
 	# (r'^/$'+user.get_absolute_url(),PictureCreateView.as_view(), {}, 'upload-new'),
-    (r'^new/$', PictureCreateView.as_view(), {}, 'upload-new'),
-    (r'^delete/(?P<pk>\d+)$', PictureDeleteView.as_view(), {}, 'upload-delete'),
+    (r'^new/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
+    (r'^delete/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {},
+        'upload-delete'),
+    #(r'^annotate/(?P<pk>\d+)$', FileAnnotate.as_view(), {}, 'upload-annotate')
 )
 

@@ -1,6 +1,6 @@
-from mysite.fileupload.models import Picture
+from mysite.fileupload.models import UploadedFile
 from django.views.generic import CreateView, DeleteView
-
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
@@ -13,25 +13,25 @@ def response_mimetype(request):
     else:
         return "text/plain"
 
-class PictureCreateView(CreateView):
-    model = Picture
+class UploadedFileCreateView(CreateView):
+    model = UploadedFile
 
     def form_valid(self, form):
         self.object = form.save()
         f = self.request.FILES.get('file')
-        data = [{'name': f.name, 'url': settings.MEDIA_URL + "pictures/" + f.name.replace(" ", "_"), 'delete_url': reverse('upload-delete', args=[self.object.id]), 'delete_type': "DELETE"}]
+        data = [{'name': f.name, 'url': settings.MEDIA_URL + "files/" + f.name.replace(" ", "_"), 'delete_url': reverse('upload-delete', args=[self.object.id]), 'delete_type': "DELETE"}]
         response = JSONResponse(data, {}, response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
         return response
 
     def get_context_data(self, **kwargs):
-        context = super(PictureCreateView, self).get_context_data(**kwargs)
-        context['pictures'] = Picture.objects.all()
+        context = super(UploadedFileCreateView, self).get_context_data(**kwargs)
+        context['files'] = UploadedFile.objects.all()
         return context
 
 
-class PictureDeleteView(DeleteView):
-    model = Picture
+class UploadedFileDeleteView(DeleteView):
+    model = UploadedFile
 
     def delete(self, request, *args, **kwargs):
         """
@@ -46,6 +46,13 @@ class PictureDeleteView(DeleteView):
             return response
         else:
             return HttpResponseRedirect('/upload/new')
+
+#class FileAnnotate(AnnotateView):
+#    model = Picture
+#    def annotate(self, request, file_id):
+#        f = self.get_object()
+#        return render(request, 'fileupload/file_annotate.html', {'file': f})
+
 
 class JSONResponse(HttpResponse):
     """JSON response class."""
