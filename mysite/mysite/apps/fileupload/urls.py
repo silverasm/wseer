@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 
+from mysite.apps.fileupload import views
 from mysite.apps.registration import signals
 from mysite.apps.registration.views import RegistrationView as BaseRegistrationView
 
@@ -21,6 +22,7 @@ urlpatterns = patterns('',
     (r'^new/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
     (r'^delete/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {},
         'upload-delete'),
+    url(r'^annotate/(?P<pk>\d+)$', views.annotate, name='annotate'),
     #(r'^annotate/(?P<pk>\d+)$', FileAnnotate.as_view(), {}, 'upload-annotate')
 )
 

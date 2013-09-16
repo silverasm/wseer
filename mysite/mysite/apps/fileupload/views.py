@@ -6,6 +6,7 @@ from django.utils import simplejson
 from django.core.urlresolvers import reverse
 
 from django.conf import settings
+from django.shortcuts import render, get_object_or_404
 
 def response_mimetype(request):
     if "application/json" in request.META['HTTP_ACCEPT']:
@@ -34,10 +35,6 @@ class UploadedFileDeleteView(DeleteView):
     model = UploadedFile
 
     def delete(self, request, *args, **kwargs):
-        """
-        This does not actually delete the file, only the database record.  But
-        that is easy to implement.
-        """
         self.object = self.get_object()
         self.object.delete()
         if request.is_ajax():
@@ -47,12 +44,9 @@ class UploadedFileDeleteView(DeleteView):
         else:
             return HttpResponseRedirect('/upload/new')
 
-#class FileAnnotate(AnnotateView):
-#    model = Picture
-#    def annotate(self, request, file_id):
-#        f = self.get_object()
-#        return render(request, 'fileupload/file_annotate.html', {'file': f})
-
+def annotate(request, pk):
+    f = get_object_or_404(UploadedFile, pk=pk)
+    return HttpResponse(f)
 
 class JSONResponse(HttpResponse):
     """JSON response class."""
