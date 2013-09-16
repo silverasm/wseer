@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+import os
 
 class UploadedFile(models.Model):
 
@@ -22,5 +24,6 @@ class UploadedFile(models.Model):
         super(UploadedFile, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
+        os.remove(self.file.path)
         self.file.delete(False)
         super(UploadedFile, self).delete(*args, **kwargs)
