@@ -1,4 +1,4 @@
-# Django settings for mysite project.
+# Django settings for wseeruploader project.
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -106,10 +106,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-ROOT_URLCONF = 'mysite.urls'
+ROOT_URLCONF = 'wseeruploader.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'mysite.wsgi.application'
+WSGI_APPLICATION = 'wseeruploader.wsgi.application'
 
 TEMPLATE_DIRS = (
 )
@@ -122,7 +122,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'registration',
-    'mysite.apps.fileupload',
+    'wseeruploader.apps.fileupload',
     'django.contrib.admin',
     'django.contrib.admindocs',
 )

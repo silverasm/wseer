@@ -9,14 +9,16 @@ class UploadedFile(models.Model):
     # pillow (where Pillow is easily installable in a virtualenv. If you have
     # problems installing pillow, use a more generic FileField instead.
 
-    STATES = (
-        (0, "Uploaded"),
-        (1, "Annotated"),
-        (2, "Processing"),
-        (4, "Processed"),
-    )
+    #STATES = (
+    #    (0, "Uploaded"),
+    #    (1, "Annotated"),
+    #    (2, "Processing"),
+    #    (4, "Processed"),
+    #)
     
-    status = models.IntegerField(choices=STATES, default=0)
+    #status = models.IntegerField(choices=STATES, default=0)
+    #TODO: this is not working with an IntegerField...
+    status = models.BooleanField(default=False) 
     file = models.FileField(upload_to="xmlfiles")
     slug = models.SlugField(max_length=50, blank=True)
 
