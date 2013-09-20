@@ -3,11 +3,7 @@ from django.conf import settings
 import os
 
 class UploadedFile(models.Model):
-
-    # This is a small demo using just two fields. The slug field is really not
-    # necessary, but makes the code simpler. ImageField depends on PIL or
-    # pillow (where Pillow is easily installable in a virtualenv. If you have
-    # problems installing pillow, use a more generic FileField instead.
+    # We use slugs to store the filename for easy access.
 
     #STATES = (
     #    (0, "Uploaded"),
@@ -18,7 +14,7 @@ class UploadedFile(models.Model):
     
     #status = models.IntegerField(choices=STATES, default=0)
     #TODO: this is not working with an IntegerField...
-    status = models.BooleanField(default=False) 
+    status = models.SmallIntegerField(default=0) 
     file = models.FileField(upload_to="xmlfiles")
     slug = models.SlugField(max_length=50, blank=True)
 

@@ -121,10 +121,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'registration',
-    'wseeruploader.apps.fileupload',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'wseeruploader.apps.fileupload',
+    'wseeruploader.apps.registration',
+    
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
