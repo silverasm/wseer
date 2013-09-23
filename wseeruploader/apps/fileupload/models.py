@@ -14,7 +14,7 @@ class UploadedFile(models.Model):
     
     #status = models.IntegerField(choices=STATES, default=0)
     #TODO: this is not working with an IntegerField...
-    status = models.SmallIntegerField(default=0) 
+    status = models.SmallIntegerField(default=0,blank=True,null=True) 
     file = models.FileField(upload_to="xmlfiles")
     slug = models.SlugField(max_length=50, blank=True)
 

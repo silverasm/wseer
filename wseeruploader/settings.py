@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    #('abc', 'email@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -137,28 +137,67 @@ EMAIL_HOST = 'localhost'
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+#LOGGING = {
+    #'version': 1,
+    #'disable_existing_loggers': False,
+    #'filters': {
+        #'require_debug_false': {
+            #'()': 'django.utils.log.RequireDebugFalse'
+        #}
+    #},
+    #'handlers': {
+        #'mail_admins': {
+            #'level': 'ERROR',
+            #'filters': ['require_debug_false'],
+            #'class': 'django.utils.log.AdminEmailHandler'
+        #}
+    #},
+    #'loggers': {
+        #'django.request': {
+            #'handlers': ['mail_admins'],
+            #'level': 'ERROR',
+            #'propagate': True,
+        #},
+    #}
+#}
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        }
-    },
     'handlers': {
+        # Include the default Django email handler for errors
+        # This is what you'd get without configuring logging at all.
         'mail_admins': {
+            'class': 'django.utils.log.AdminEmailHandler',
             'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+             # But the emails are plain text by default - HTML is nicer
+            'include_html': True,
+        },
+        # Log to a text file that can be rotated by logrotate
+        'logfile': {
+            'class': 'logging.handlers.WatchedFileHandler',
+            'filename': '/var/log/django/wseer.log'
+        },
     },
     'loggers': {
+        # Again, default Django configuration to email unhandled exceptions
         'django.request': {
             'handlers': ['mail_admins'],
-            'level': 'ERROR',
+            'level': 'DEBUG',
             'propagate': True,
         },
-    }
+        # Might as well log any errors anywhere else in Django
+        'django': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Your own app - this assumes all your logger names start with "myapp."
+        'apps.fileupload': {
+            'handlers': ['logfile'],
+            'level': 'DEBUG', # Or maybe INFO or DEBUG
+            'propagate': False
+        },
+    },
 }
 
 LOGIN_REDIRECT_URL = '/upload/new'
