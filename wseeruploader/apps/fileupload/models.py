@@ -21,10 +21,6 @@ class UploadedFile(models.Model):
     def __unicode__(self):
         return self.file.name
 
-    #@models.permalink
-    #def get_absolute_url(self):
-    #    return ('upload-new', )
-
     def name(self):
         return os.path.basename(self.file.name)
     
