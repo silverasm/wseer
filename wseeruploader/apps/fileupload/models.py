@@ -3,11 +3,15 @@ from django.conf import settings
 import os
 
 class UploadedFile(models.Model):
+    STATE_UPLOADED = 0
+    STATE_ANNOTATED = 1
+    STATE_PROCESSING = 2
+    STATE_PROCESSED = 4
     STATES = (
-        (0, "Uploaded"),
-        (1, "Annotated"),
-        (2, "Processing"),
-        (4, "Processed"),
+        (STATE_UPLOADED, "Uploaded"),
+        (STATE_ANNOTATED, "Annotated"),
+        (STATE_PROCESSING, "Processing"),
+        (STATE_PROCESSED, "Processed"),
     )
 
     status = models.SmallIntegerField(choices=STATES,
@@ -23,6 +27,8 @@ class UploadedFile(models.Model):
         return ('upload-new', )
 
     def save(self, *args, **kwargs):
+        if not self.status:
+            self.status = self.STATE_UPLOADED
         self.name = self.file.name
         super(UploadedFile, self).save(*args, **kwargs)
 
