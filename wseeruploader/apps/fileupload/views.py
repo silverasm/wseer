@@ -46,7 +46,8 @@ class UploadedFileDeleteView(DeleteView):
 
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
-    return HttpResponse(f)
+    context = {"file": f}
+    return render(request, "fileupload/uploadedfile_annotate.html", context)
 
 class JSONResponse(HttpResponse):
     """JSON response class."""

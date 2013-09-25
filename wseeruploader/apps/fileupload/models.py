@@ -3,8 +3,6 @@ from django.conf import settings
 import os
 
 class UploadedFile(models.Model):
-    # We use slugs to store the filename for easy access.
-
     STATES = (
         (0, "Uploaded"),
         (1, "Annotated"),
