@@ -17,19 +17,20 @@ class UploadedFile(models.Model):
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
     file = models.FileField(upload_to=settings.XML_ROOT)
-    name = models.FilePathField(path=settings.MEDIA_ROOT, blank=True)
 
     def __unicode__(self):
         return self.file.name
 
-    @models.permalink
-    def get_absolute_url(self):
-        return ('upload-new', )
+    #@models.permalink
+    #def get_absolute_url(self):
+    #    return ('upload-new', )
 
+    def name(self):
+        return os.path.basename(self.file.name)
+    
     def save(self, *args, **kwargs):
         if not self.status:
             self.status = self.STATE_UPLOADED
-        self.name = self.file.name
         super(UploadedFile, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
