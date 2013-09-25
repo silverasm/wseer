@@ -51,9 +51,9 @@
         <table class="table table-striped">
             {% for file in files %}
             <tr>
-                <td class="name"><a href="{% url 'annotate' file.id %}">{{ file.name }}</a></td>
+                <td class="name"><a href="{% url 'fileupload:annotate' file.id %}">{{ file.name }}</a></td>
                 <td class="delete">
-                    <a class="btn btn-danger" href="{% url 'upload-delete' file.id %}">
+                    <a class="btn btn-danger" href="{% url 'fileupload:upload-delete' file.id %}">
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>

@@ -16,7 +16,8 @@ urlpatterns = patterns('',
         MyRegistrationView.as_view(), name='registration_register'),
 	url(r'^accounts/',
         include('wseeruploader.apps.registration.backends.simple.urls')),
-	url(r'^upload/', include('wseeruploader.apps.fileupload.urls')),
+	url(r'^upload/', include('wseeruploader.apps.fileupload.urls',
+        namespace="fileupload")),
 )
 
 
