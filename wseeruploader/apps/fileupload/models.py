@@ -5,14 +5,15 @@ import os
 class UploadedFile(models.Model):
     # We use slugs to store the filename for easy access.
 
-    #STATES = (
-    #    (0, "Uploaded"),
-    #    (1, "Annotated"),
-    #    (2, "Processing"),
-    #    (4, "Processed"),
-    #)
+    STATES = (
+        (0, "Uploaded"),
+        (1, "Annotated"),
+        (2, "Processing"),
+        (4, "Processed"),
+    )
     
-    status = models.SmallIntegerField(default=0,blank=True,null=True) 
+    status = models.SmallIntegerField(choices=STATES,
+        default=0, blank=True, null=True) 
     file = models.FileField(upload_to="xmlfiles")
     slug = models.SlugField(max_length=50, blank=True)
 

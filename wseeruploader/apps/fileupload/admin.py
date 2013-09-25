@@ -3,11 +3,11 @@ from wseeruploader.apps.fileupload.models import UploadedFile
 
 class UploadedFileAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None,               {'fields': ['slug']}),
-        ('File info', {'fields': ['file', ], 'classes': ['collapse']}),
+        (None, {'fields': ['slug']}),
+        ('File info', {'fields': ['file', 'status']}),
     ]
-    list_display = ('slug', 'file', )
+    list_display = ('slug', 'file', 'status')
     list_filter = ['status']
 
-#admin.site.register(UploadedFile, UploadedFileAdmin)
+admin.site.register(UploadedFile, UploadedFileAdmin)
 
