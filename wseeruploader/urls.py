@@ -20,7 +20,6 @@ urlpatterns = patterns('',
         namespace="fileupload")),
 )
 
-
 urlpatterns += patterns('',
         (r'^media/(.*)$', 'django.views.static.serve',
             {'document_root': os.path.join(os.path.abspath(

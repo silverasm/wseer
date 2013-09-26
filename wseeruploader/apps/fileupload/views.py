@@ -1,5 +1,5 @@
-from wseeruploader.apps.fileupload.models import UploadedFile
-from django.views.generic import CreateView, DeleteView
+from wseeruploader.apps.fileupload.models import UploadedFile, Project
+from django.views.generic import CreateView, DeleteView, ListView
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
@@ -43,6 +43,14 @@ class UploadedFileDeleteView(DeleteView):
             return response
         else:
             return HttpResponseRedirect('/upload/new')
+
+class ProjectListView(ListView):
+    model = Project
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectListView, self).get_context_data(**kwargs)
+        return context
+    
 
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)

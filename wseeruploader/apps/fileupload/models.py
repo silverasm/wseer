@@ -2,7 +2,13 @@ from django.db import models
 from django.conf import settings
 import os
 
+class Project(models.Model):
+    """This is a project that is owned by a user and contains many
+    UploadedFiles."""
+    name = models.CharField(max_length=200)
+
 class UploadedFile(models.Model):
+    """This represents a file that has been uploaded to the server."""
     STATE_UPLOADED = 0
     STATE_ANNOTATED = 1
     STATE_PROCESSING = 2
@@ -17,6 +23,7 @@ class UploadedFile(models.Model):
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
     file = models.FileField(upload_to=settings.XML_ROOT)
+    project = models.ForeignKey(Project)
 
     def __unicode__(self):
         return self.file.name
@@ -33,3 +40,6 @@ class UploadedFile(models.Model):
         os.remove(self.file.path)
         self.file.delete(False)
         super(UploadedFile, self).delete(*args, **kwargs)
+
+
+    
