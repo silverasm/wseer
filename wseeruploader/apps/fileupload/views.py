@@ -1,12 +1,16 @@
-from wseeruploader.apps.fileupload.models import UploadedFile, Project
-from django.views.generic import CreateView, DeleteView, ListView
+from wseeruploader.apps.fileupload.models import UploadedFile, Project, ProjectForm
+from django.views.generic import CreateView, DeleteView, ListView, View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
+from django.views.generic.detail import SingleObjectMixin
 
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
+
+import logging
+logger = logging.getLogger("apps.fileupload")
 
 def response_mimetype(request):
     if "application/json" in request.META['HTTP_ACCEPT']:
@@ -20,7 +24,11 @@ class UploadedFileCreateView(CreateView):
     def form_valid(self, form):
         self.object = form.save()
         f = self.request.FILES.get('file')
-        data = [{'name': f.name, 'url': settings.MEDIA_URL + "files/" + f.name.replace(" ", "_"), 'delete_url': reverse('fileupload:upload-delete', args=[self.object.id]), 'delete_type': "DELETE"}]
+        data = [{'name': f.name,
+            'url': settings.MEDIA_URL + "files/" + f.name.replace(" ", "_"),
+            'delete_url': reverse('fileupload:upload-delete',
+                args=[self.object.id]),
+            'delete_type': "DELETE"}]
         response = JSONResponse(data, {}, response_mimetype(self.request))
         response['Content-Disposition'] = 'inline; filename=files.json'
         return response
@@ -44,14 +52,16 @@ class UploadedFileDeleteView(DeleteView):
         else:
             return HttpResponseRedirect('/upload/new')
 
-class ProjectListView(ListView):
-    model = Project
+def ProjectListAndCreate(request):
+    form = ProjectForm(request.POST or None)
+    if request.method == 'POST':
+        form.save()
 
-    def get_context_data(self, **kwargs):
-        context = super(ProjectListView, self).get_context_data(**kwargs)
-        return context
-    
-
+    # notice this comes after saving the form to pick up new objects
+    projects = Project.objects.all()
+    return render(request, 'fileupload/projects.html',
+        {'projects': projects, 'form': form})
+        
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
     context = {"file": f}
