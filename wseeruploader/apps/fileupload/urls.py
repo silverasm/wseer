@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 
 from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
-    UploadedFileDeleteView)
+    UploadedFileDeleteView, ProjectDelete)
 from wseeruploader.apps.registration.backends.simple.views import (
     RegistrationView)
 from wseeruploader.apps.fileupload import views
@@ -20,10 +20,12 @@ class MyRegistrationView(RegistrationView):
 
 urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
-    #(r'^projects/files/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
-    #(r'^delete/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {},
-    #    'upload-delete'),
-    #url(r'^annotate/(?P<pk>\d+)$', views.annotate, name='annotate'),
+    (r'^projects/d/(?P<pk>\d+)$', ProjectDelete.as_view(), {},
+        'project-delete'),
+    (r'^projects/(?P<pk>\d+)/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
+    (r'^projects/(\d+)/d/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {},
+        'upload-delete'),
+    url(r'^annotate/(?P<pk>\d+)$', views.annotate, name='annotate'),
     
 )
 

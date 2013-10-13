@@ -33,7 +33,7 @@ class UploadedFile(models.Model):
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
     file = models.FileField(upload_to=settings.XML_ROOT)
-    #project = models.ForeignKey(Project)
+    project = models.ForeignKey(Project)
 
     def __unicode__(self):
         return self.file.name

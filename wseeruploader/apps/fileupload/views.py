@@ -22,10 +22,12 @@ class UploadedFileCreateView(CreateView):
     model = UploadedFile
 
     def form_valid(self, form):
+        logger.critical("Inside form_valid")
         self.object = form.save()
         f = self.request.FILES.get('file')
         data = [{'name': f.name,
             'url': settings.MEDIA_URL + "files/" + f.name.replace(" ", "_"),
+            'project': proj,
             'delete_url': reverse('fileupload:upload-delete',
                 args=[self.object.id]),
             'delete_type': "DELETE"}]
@@ -36,6 +38,7 @@ class UploadedFileCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(UploadedFileCreateView, self).get_context_data(**kwargs)
         context['files'] = UploadedFile.objects.all()
+        #context['proj'] = self.object.project.get()
         return context
 
 
@@ -61,7 +64,17 @@ def ProjectListAndCreate(request):
     projects = Project.objects.all()
     return render(request, 'fileupload/projects.html',
         {'projects': projects, 'form': form})
-        
+
+class ProjectDelete(DeleteView):
+    model = Project
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        for upfile in self.object.uploadedfile_set.all():
+            upfile.delete()
+        self.object.delete()
+        return HttpResponseRedirect(reverse("projects"))
+
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
     context = {"file": f}

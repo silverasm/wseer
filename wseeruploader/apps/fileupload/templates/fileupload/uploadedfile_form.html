@@ -8,7 +8,9 @@
         <h2>Welcome {{ request.user.username }}<h2>
 
     </div>
-    <form id="fileupload" method="post" action="." enctype="multipart/form-data">{% csrf_token %}
+    <form id="fileupload" method="post" action="."
+        enctype="multipart/form-data">
+        {% csrf_token %}
         <div class="row fileupload-buttonbar">
             <div class="span7">
                 <span class="btn btn-primary fileinput-button">
@@ -38,7 +40,9 @@
             </div>
         </div>
         <div class="fileupload-loading"></div>
-        <table class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+        <table class="table table-striped"><tbody class="files"
+            data-toggle="modal-gallery" data-target="#modal-gallery">
+        </tbody></table>
     </form>
     <div class="fileupload-content">
         <table class="files"></table>
@@ -51,9 +55,12 @@
         <table class="table table-striped">
             {% for file in files %}
             <tr>
-                <td class="name"><a href="{% url 'fileupload:annotate' file.id %}">{{ file.name }}</a></td>
+                <td class="name"><a
+                    href="{% url 'fileupload:annotate' file.id %}">
+                    {{ file.name }}</a></td>
                 <td class="delete">
-                    <a class="btn btn-danger" href="{% url 'fileupload:upload-delete' file.id %}">
+                    <a class="btn btn-danger"
+                        href="{% url 'fileupload:upload-delete' file.id %}">
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>
