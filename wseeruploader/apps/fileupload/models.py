@@ -29,7 +29,7 @@ class UploadedFile(models.Model):
         (STATE_PROCESSING, "Processing"),
         (STATE_PROCESSED, "Processed"),
     )
-
+    
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
     file = models.FileField(upload_to=settings.XML_ROOT)
@@ -51,5 +51,7 @@ class UploadedFile(models.Model):
         self.file.delete(False)
         super(UploadedFile, self).delete(*args, **kwargs)
 
-
-    
+class UploadedFileForm(ModelForm):
+    class Meta:
+        model = UploadedFile
+        exclude = ('project',)

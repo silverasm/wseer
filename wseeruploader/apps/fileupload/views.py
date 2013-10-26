@@ -1,4 +1,4 @@
-from wseeruploader.apps.fileupload.models import UploadedFile, Project, ProjectForm
+from wseeruploader.apps.fileupload.models import UploadedFile, Project, ProjectForm, UploadedFileForm
 from django.views.generic import CreateView, DeleteView, ListView, View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -20,25 +20,46 @@ def response_mimetype(request):
 
 class UploadedFileCreateView(CreateView):
     model = UploadedFile
-
+    form_class = UploadedFileForm
+    
     def form_valid(self, form):
-        logger.critical("Inside form_valid")
-        self.object = form.save()
+        logger.debug("*********Inside form_valid")
+        
+        self.object = form.save(commit=False)
+        self.object.project_id = self.kwargs['proj_key']
+        self.object.save()
+        logger.debug("ID1")
+        logger.debug(self.object.name())
+        logger.debug("/uploads/xmlfiles/" + self.object.name().replace(" ", "_"))
+        logger.debug("ID2")
         f = self.request.FILES.get('file')
-        data = [{'name': f.name,
-            'url': settings.MEDIA_URL + "files/" + f.name.replace(" ", "_"),
-            'project': proj,
+        
+        data = [{
+            'name': self.object.name(),
+            'url': "/uploads/xmlfiles/" + self.object.name().replace(" ", "_"),
             'delete_url': reverse('fileupload:upload-delete',
-                args=[self.object.id]),
+                kwargs={'pk':self.object.id,
+                'proj_key':self.kwargs['proj_key']}),
             'delete_type': "DELETE"}]
+        
         response = JSONResponse(data, {}, response_mimetype(self.request))
+        
         response['Content-Disposition'] = 'inline; filename=files.json'
-        return response
+        
+        return super(UploadedFileCreateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
+        logger.debug("--KWARGS--")
+        logger.debug(kwargs)
+        logger.debug("--SELF KWARGS proj_key--")
+        logger.debug(self.kwargs["proj_key"])
+        logger.debug("--MODEL--")
+        logger.debug(dir(self.model.project))
         context = super(UploadedFileCreateView, self).get_context_data(**kwargs)
         context['files'] = UploadedFile.objects.all()
-        #context['proj'] = self.object.project.get()
+        context['proj'] = int(self.kwargs["proj_key"])
+        logger.debug("--CONTEXT--")
+        logger.debug(context['proj'])
         return context
 
 

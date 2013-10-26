@@ -6,7 +6,6 @@
     <div class="page-header">
         <h1>Wordseer File Uploader</h1>
         <h2>Welcome {{ request.user.username }}<h2>
-
     </div>
     <form id="fileupload" method="post" action="."
         enctype="multipart/form-data">
@@ -54,18 +53,21 @@
         <h2>Already uploaded</h2>
         <table class="table table-striped">
             {% for file in files %}
+            
+            {% if file.project_id == proj %}
             <tr>
                 <td class="name"><a
                     href="{% url 'fileupload:annotate' file.id %}">
                     {{ file.name }}</a></td>
                 <td class="delete">
                     <a class="btn btn-danger"
-                        href="{% url 'fileupload:upload-delete' file.id %}">
+                        href="{% url 'fileupload:upload-delete' pk=file.id proj_key=proj %}"
                         <i class="icon-trash icon-white"></i>
                         <span>Delete</span>
                     </button>
                 </td>
             </tr>
+            {% endif %}
             {% endfor %}
         </table>
         {% endif %}

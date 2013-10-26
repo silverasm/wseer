@@ -22,9 +22,8 @@ urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
     (r'^projects/d/(?P<pk>\d+)$', ProjectDelete.as_view(), {},
         'project-delete'),
-    (r'^projects/(?P<pk>\d+)/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
-    (r'^projects/(\d+)/d/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {},
-        'upload-delete'),
+    (r'^projects/(?P<proj_key>\d+)/$', UploadedFileCreateView.as_view(), {}, 'upload-new'),
+    (r'^projects/(?P<proj_key>\d+)/d/(?P<pk>\d+)$', UploadedFileDeleteView.as_view(), {}, 'upload-delete'),
     url(r'^annotate/(?P<pk>\d+)$', views.annotate, name='annotate'),
     
 )
