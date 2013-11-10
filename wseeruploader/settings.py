@@ -76,6 +76,7 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.abspath(os.path.dirname(__file__)) + "/static/",
 )
 
 # List of finder classes that know how to find static files in
@@ -108,13 +109,13 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-
 ROOT_URLCONF = 'wseeruploader.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wseeruploader.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.abspath(os.path.dirname(__file__)) + "/templates/"
 )
 
 INSTALLED_APPS = (
