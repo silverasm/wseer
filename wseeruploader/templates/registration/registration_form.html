@@ -7,6 +7,7 @@
         <h1>Register</h1>
     </div>
     <form method="post" action=".">
+        {% csrf_token %}
       {{ form.as_p }}
 
       <span class="btn btn-primary fileinput-button">
