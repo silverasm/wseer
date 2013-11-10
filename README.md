@@ -8,6 +8,7 @@ Dependencies
 ------------
 
 * crispy_forms
+* django-registration
 
 Todo
 ----

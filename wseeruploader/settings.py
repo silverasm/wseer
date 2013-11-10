@@ -127,7 +127,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'wseeruploader.apps.fileupload',
-    'wseeruploader.apps.registration',
+    'registration',
     'crispy_forms',
 )
 
