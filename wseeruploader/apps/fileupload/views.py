@@ -27,12 +27,7 @@ class JSONResponse(HttpResponse):
     
     def __init__(self,obj='',json_opts={},mimetype="application/json",*args,**kwargs):
         content = simplejson.dumps(obj,**json_opts)
-        logger.debug("**Content**")
-        logger.debug(content)
         a = super(JSONResponse,self).__init__(content,mimetype,*args,**kwargs)
-        logger.debug("**Response**")
-        logger.debug(a)
-        
         
 class UploadedFileCreateView(CreateView):
     model = UploadedFile
@@ -68,13 +63,17 @@ class UploadedFileDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
+        proj = self.kwargs["proj_key"]
+        
         self.object.delete()
         if request.is_ajax():
             response = JSONResponse(True, {}, response_mimetype(self.request))
             response['Content-Disposition'] = 'inline; filename=files.json'
             return response
         else:
-            return HttpResponseRedirect('/upload/new')
+            logger.debug(proj)
+            return HttpResponseRedirect(reverse("fileupload:upload-new",
+                kwargs={'proj_key':proj}))
 
 def ProjectListAndCreate(request):
     form = ProjectForm(request.POST or None)
@@ -94,7 +93,7 @@ class ProjectDelete(DeleteView):
         for upfile in self.object.uploadedfile_set.all():
             upfile.delete()
         self.object.delete()
-        return HttpResponseRedirect(reverse("projects"))
+        return HttpResponseRedirect(reverse("fileupload:projects"))
 
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
