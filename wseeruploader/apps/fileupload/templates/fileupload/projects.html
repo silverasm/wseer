@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load upload_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Wordseer File Uploader</h1>
+        <h2>{{ request.user.username }}'s Projects<h2>
+
+    </div>
+    <form id="fileupload" method="post" action="."
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row fileupload-buttonbar">
+            <div class="col-md-7">
+                {% load crispy_forms_tags %}
+                {% crispy form %}
+            </div>
+        </div>
+        <table class="table table-striped"><tbody class="files"></tbody></table>
+    </form>
+    <div class="fileupload-content">
+        <table class="projects"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+
+    <div>
+        {% if projects %}
+        <h2>Projects</h2>
+        <table class="table table-striped">
+            {% for project in projects %}
+            <tr>
+                <td class="name"><a
+                    href="{% url 'fileupload:upload-new' proj_key=project.id %}">
+                    {{ project.name }}</a></td>
+                <td class="delete">
+                    <a class="btn btn-danger"
+                        href="{% url 'fileupload:project-delete' project.id %}">
+                        <i class="icon-trash icon-white"></i>
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
