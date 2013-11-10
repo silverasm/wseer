@@ -7,17 +7,18 @@ from django.core.urlresolvers import reverse
 
 from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
     UploadedFileDeleteView, ProjectDelete)
-from wseeruploader.apps.registration.backends.simple.views import (
-    RegistrationView)
 from wseeruploader.apps.fileupload import views
-from wseeruploader.apps.registration import signals
-from wseeruploader.apps.registration.views import (
-    RegistrationView as BaseRegistrationView)
 
-class MyRegistrationView(RegistrationView):
-    def get_success_url(self, request, user):
-        # return "/upload/new"
-        return "/upload/" + user.get_absolute_url()
+#from registration.backends.simple.views import (
+#    RegistrationView)
+#from wseeruploader.apps.registration import signals
+#from wseeruploader.apps.registration.views import (
+#    RegistrationView as BaseRegistrationView)
+
+#class MyRegistrationView(RegistrationView):
+#    def get_success_url(self, request, user):
+#        # return "/upload/new"
+#        return "/upload/" + user.get_absolute_url()
 
 urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
