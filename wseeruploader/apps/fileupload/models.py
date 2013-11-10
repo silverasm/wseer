@@ -1,7 +1,9 @@
 from django.db import models
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 import os
 
 class Project(models.Model):
@@ -10,9 +12,18 @@ class Project(models.Model):
     name = models.CharField(max_length=200)
 
     #def get_absolute_url(self):
-    #    return reverse("projects")
+    #    return reverse("projects", args=(self.id))
 
 class ProjectForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ProjectForm, self).__init__(*args, **kwargs)
+
+        # If you pass FormHelper constructor a form instance
+        # It builds a default layout with all its fields
+        self.helper = FormHelper(self)
+
+        # You can dynamically adjust your layout
+        self.helper.layout.append(Submit('save', 'New Project'))
     class Meta:
         model = Project
         fields = ['name']

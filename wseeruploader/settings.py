@@ -128,10 +128,11 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'wseeruploader.apps.fileupload',
     'wseeruploader.apps.registration',
-    
+    'crispy_forms',
 )
 
 ACCOUNT_ACTIVATION_DAYS = 7
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 EMAIL_HOST = 'localhost'
 
