@@ -51,6 +51,9 @@ class UploadedFile(models.Model):
         self.file.delete(False)
         super(UploadedFile, self).delete(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return u'/upload/projects/%d' % self.id 
+    
 class UploadedFileForm(ModelForm):
     class Meta:
         model = UploadedFile

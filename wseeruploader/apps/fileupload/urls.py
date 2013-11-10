@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.core.urlresolvers import reverse
 
 from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
     UploadedFileDeleteView, ProjectDelete)

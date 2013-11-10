@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    #('abc', 'email@gmail.com'),
+    ('abc', 'alyosha.be@gmail.com'),
 )
 
 MANAGERS = ADMINS
