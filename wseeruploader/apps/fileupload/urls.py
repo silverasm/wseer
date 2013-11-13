@@ -9,17 +9,6 @@ from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
     UploadedFileDeleteView, ProjectDelete)
 from wseeruploader.apps.fileupload import views
 
-#from registration.backends.simple.views import (
-#    RegistrationView)
-#from wseeruploader.apps.registration import signals
-#from wseeruploader.apps.registration.views import (
-#    RegistrationView as BaseRegistrationView)
-
-#class MyRegistrationView(RegistrationView):
-#    def get_success_url(self, request, user):
-#        # return "/upload/new"
-#        return "/upload/" + user.get_absolute_url()
-
 urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
     (r'^projects/d/(?P<pk>\d+)$', ProjectDelete.as_view(), {},
