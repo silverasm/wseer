@@ -9,6 +9,7 @@ Dependencies
 
 * crispy_forms
 * django-registration
+* python-magic
 
 Todo
 ----
@@ -17,3 +18,5 @@ Todo
 * Get registration working
 * Add in annotation code
 * Integrate wordseer running on server
+* directory for users, and for projects
+* second login

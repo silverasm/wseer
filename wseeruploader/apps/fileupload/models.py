@@ -1,10 +1,13 @@
 from django.db import models
-from django.forms import ModelForm, TextInput
+#from django.forms import ModelForm, TextInput
+from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
+import validators
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 import os
+import magic
 
 class Project(models.Model):
     """This is a project that is owned by a user and contains many
@@ -14,7 +17,7 @@ class Project(models.Model):
     #def get_absolute_url(self):
     #    return reverse("projects", args=(self.id))
 
-class ProjectForm(ModelForm):
+class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
 
@@ -43,9 +46,9 @@ class UploadedFile(models.Model):
     
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
-    file = models.FileField(upload_to=settings.XML_ROOT)
+    file = models.FileField(upload_to=settings.XML_ROOT, validators=[validators.validate_xml])
     project = models.ForeignKey(Project)
-
+    
     def __unicode__(self):
         return self.file.name
 
@@ -65,7 +68,7 @@ class UploadedFile(models.Model):
     def get_absolute_url(self):
         return u'/upload/projects/%d' % self.id 
     
-class UploadedFileForm(ModelForm):
+class UploadedFileForm(forms.ModelForm):
     class Meta:
         model = UploadedFile
         exclude = ('project',)
