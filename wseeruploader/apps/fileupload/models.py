@@ -8,6 +8,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 import os
 import magic
+import logging
+logger = logging.getLogger("apps.fileupload")
+
 
 class Project(models.Model):
     """This is a project that is owned by a user and contains many
@@ -46,7 +49,7 @@ class UploadedFile(models.Model):
     
     status = models.SmallIntegerField(choices=STATES,
         default=0, blank=True, null=True) 
-    file = models.FileField(upload_to=settings.XML_ROOT, validators=[validators.validate_xml])
+    file = models.FileField(upload_to=settings.XML_ROOT)#, validators=[validators.validate_xml])
     project = models.ForeignKey(Project)
     
     def __unicode__(self):
@@ -66,7 +69,13 @@ class UploadedFile(models.Model):
         super(UploadedFile, self).delete(*args, **kwargs)
 
     def get_absolute_url(self):
-        return u'/upload/projects/%d' % self.id 
+        return u'/upload/projects/%d' % self.id
+
+    #def clean(self):
+    #    logger.debug("Cleaning")
+    #    logger.debug(self.file.url)
+    #    if not "XML" in magic.from_file(u'/upload/projects/%d' % self.id):
+    #        raise ValidationError(u'Not an xml file.')
     
 class UploadedFileForm(forms.ModelForm):
     class Meta:

@@ -1,0 +1,67 @@
+<table>
+	<tr>
+		<% if (tag) { %>
+			<td>tag: </td>
+			<td>
+				<span class="btn <%= btn_type %>"><%= tag %></span>
+			</td>
+		<% } else if (attr) { %>
+			<td>attr: </td>
+			<td>
+				<span class="btn <%= btn_type %>"><%= attr %></span>
+			</td>
+		<% } %>
+		
+	</tr>
+	<tr>
+		<td>type: </td>
+		<td>
+			<div class="type">
+				<% 
+				var types = ["subunit", "metadata"];
+				if (type) { 
+					types = _.without(types, type);
+				%>
+					<div>
+						<span class="badge <%= badge_type %>"><%= type.charAt(0) %></span>
+						<%= type %>
+					</div>
+				<% } 
+				if (type !== "document") {
+					_.each(types, function(type) { %>
+						<div>
+							<input type="radio" name="<%= tag %>radio" value="<%= type %>" />
+							<%= type %>
+						</div>
+					<% }); 
+				} %>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td>name: </td>
+		<td>
+			<% if (type === "subunit") { %>
+				<div class="nameRadio sentence">
+					<input type="radio" value="sentence" 
+					<% if (name === "sentence") { %>
+					checked
+					<% } %>
+					/>
+					sentence
+				</div>
+			<% } else if (type === "metadata") { %>
+				<div class="nameRadio title">
+					<input type="radio" value="title" 
+					<% if (name === "title") { %>
+					checked
+					<% } %>
+					/>
+					title
+				</div>
+			<% } %>
+			<input class="nameText" type="text" value="<%= name %>" />
+		</td>
+	</tr>
+
+</table>

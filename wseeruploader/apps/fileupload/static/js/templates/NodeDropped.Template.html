@@ -1,0 +1,14 @@
+<span class="badge <%= badge_type %>"><%= type.charAt(0) %></span>
+<% if (name_badge) { %>
+	<span class="badge <%= name_badge %>"><%= name.charAt(0) %></span>
+<% } %>
+<span class="btn <%= btn_type %>">
+<% if (tag) { %>
+	<%= tag %>
+<% } else if (attr) { %>
+	<%= attr %>
+<% } %>
+</span>
+<span class="btn addChild"><i class="icon-plus" /></span>
+<span class="btn edit"><i class="icon-pencil" /></span>
+<i class="icon-remove remove" />

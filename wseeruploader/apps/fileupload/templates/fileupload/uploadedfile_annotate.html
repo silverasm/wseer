@@ -1,23 +1,31 @@
-{% extends "base_generic.html" %}
+<!DOCTYPE html>
+<html>
+	 <head>
+	 	<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
+        <script language="javascript">
+            var STATIC_URL = "{{ STATIC_URL|escapejs }}";
+            var XML_FILE="abc.xml";
+        </script>
+        <script data-main="{{ STATIC_URL }}js/main" src="{{ STATIC_URL }}js/contrib/require-jquery.js"></script>
+    </head>
 
-{% block content %}
-<div class="container">
-    <div class="page-header">
-        <h1>Annotate {{ file.name }}</h1>
-    </div>
-    {% if file.status == 0 %}
-        <p>File must be annotated</p>
-        <button type="submit" class="btn btn-primary start"><i class="icon-hdd icon-white"></i> Submit</button>
-    {% elif file.status == 1 %}
-        <p>File must be submitted</p>
-        <button type="submit" class="btn btn-primary start"><i class="icon-ok icon-white"></i> Submit</button>
-    {% elif file.status == 2 %}
-        <p>File is processing</p>
-    {% elif file.status == 3 %}
-        <p>File is finished</p>
-    {% endif %}
-    <p>Something will happen here</p>
-    
-</div>
+    <body>
 
-{% endblock %}
+        <div class="header">
+            <span class="btn btn-success save">save</span> 
+        </div>
+    	<div class="box" id="tagContainer">
+    	</div>
+
+    	<div class="box" id="tagHierarchy">
+    	</div>
+
+    	<div class="box" id="content">
+    	</div>
+
+        <div id="modal"></div>
+    	
+    </body>
+
+</html>

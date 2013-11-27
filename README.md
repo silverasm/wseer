@@ -17,6 +17,5 @@ Todo
 * Link projects to users
 * Get registration working
 * Add in annotation code
-* Integrate wordseer running on server
 * directory for users, and for projects
 * second login

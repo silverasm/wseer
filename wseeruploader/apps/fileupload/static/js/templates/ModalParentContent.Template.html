@@ -1,0 +1,32 @@
+<table>
+	<tr>
+		<td>parent: </td>
+		<td>
+			<span class="btn <%= btn_type %>">
+				<% if (tag) { %>
+					<%= tag %>
+				<% } else if (attr) { %>
+					<%= attr %>
+				<% } %>
+			</span>
+		</td>
+	</tr>
+
+	<tr>
+		<td>parent type: </td>
+		<td>
+			<span class="badge <%= badge_type %>"><%= type.charAt(0) %></span>
+			<%= type %>
+		</td>
+	</tr>
+
+	<tr>
+		<td>parent name: </td>
+		<td>
+			<% if (name_badge) { %>
+				<span class="badge <%= name_badge %>"><%= name.charAt(0) %></span>
+			<% } %>
+			<%= name %>
+		</td>
+	</tr>
+</table>

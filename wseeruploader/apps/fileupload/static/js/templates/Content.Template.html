@@ -1,0 +1,11 @@
+
+&lt;<span class="contentTag"><%= tagName %></span><% _.each(attributes, function(val, key) { %><span class="contentAttr"> <%= key %>="<%= val %>"</span><% });%>&gt;
+
+<% if (children.length > 0) { %>
+	<div class="childrenContainer">
+	</div>
+<% } else { %>
+	<%= text %>
+<% } %>
+
+&lt;<span class="contentTag">/<%= tagName %></span>&gt;

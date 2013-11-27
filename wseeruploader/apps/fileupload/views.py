@@ -98,6 +98,9 @@ class ProjectDelete(DeleteView):
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
     context = {"file": f}
-    return render(request, "fileupload/uploadedfile_annotate.html", context)
+    if f.status is f.STATE_UPLOADED:
+        return render(request, "fileupload/uploadedfile_annotate.html", context)
+    else:
+        return render(request, "fileupload/uploadedfile_process.html", context)
 
 

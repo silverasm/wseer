@@ -1,0 +1,13 @@
+<div class="tagButtons">
+	<span class="icons hidden">
+		<i class="icon-plus-sign plus" style="display:none" />
+		<i class="icon-minus-sign minus" />
+	</span>
+	<span class="tag btn btn-primary" draggable="true"><%= tagName %></span>
+	<% _.each(attributes, function(val, key) { %>
+		<span class="attr btn btn-info btn-small" draggable="true"><%= key %></span>
+	<% }); %>
+
+</div>
+<div class="tagChildren">
+</div>
