@@ -9,6 +9,8 @@ from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
     UploadedFileDeleteView, ProjectDelete)
 from wseeruploader.apps.fileupload import views
 
+
+
 urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
     (r'^projects/d/(?P<pk>\d+)$', ProjectDelete.as_view(), {},

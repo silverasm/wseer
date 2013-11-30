@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
+from registration.backends.simple.views import RegistrationView
 import json
 
 import logging
@@ -104,3 +105,10 @@ def annotate(request, pk):
         return render(request, "fileupload/uploadedfile_process.html", context)
 
 
+
+
+class TestRegistrationView(RegistrationView):
+    logger.debug("In TRV")
+    def get_success_url(self, request, user):
+        logger.debug("In gsu")
+        return ("blah", (), {})

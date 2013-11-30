@@ -78,6 +78,14 @@ class UploadedFile(models.Model):
     #        raise ValidationError(u'Not an xml file.')
     
 class UploadedFileForm(forms.ModelForm):
+    #def clean_file(self):
+        #file = self.cleaned_data.get("file", False)
+    #    logger.debug("***File***")
+        #logger.debug(file)
+            
     class Meta:
+
         model = UploadedFile
         exclude = ('project',)
+
+    
