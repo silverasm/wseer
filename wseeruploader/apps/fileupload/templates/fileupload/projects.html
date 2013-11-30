@@ -27,10 +27,11 @@ Project's
 </div>
 
 <div>
-    {% if projects %}
+    {% if user.project_set.count > 0 %}
     <h2>Projects</h2>
     <table class="table table-striped">
         {% for project in projects %}
+        {% if project.owner_id == user.id %}
         <tr>
             <td class="name"><a
                 href="{% url 'fileupload:upload-new' proj_key=project.id %}">
@@ -42,7 +43,9 @@ Project's
                     <span>Delete</span>
                 </button>
             </td>
+            <td></td>
         </tr>
+        {% endif %}
         {% endfor %}
     </table>
     {% endif %}

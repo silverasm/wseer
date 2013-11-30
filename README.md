@@ -14,6 +14,5 @@ Dependencies
 Todo
 ----
 
-* Link projects to users
 * Add in annotation code
 * second login
