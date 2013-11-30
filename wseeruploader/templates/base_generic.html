@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Wordseer File Uploader</title>
+    <title>WordSeer File Uploader {% block title %}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Bootstrap CSS Toolkit styles -->
@@ -15,16 +15,30 @@
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-            </div>
+    <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">WordSeer Uploader</a>
         </div>
-    </div>
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'fileupload:projects' %}">Projects</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url 'auth_login' %}">Log In</a></li>
+            <li><a href="{% url 'registration_register' %}">Register</a></li>
+        </ul>
+    </nav>
     {% block content %}
 
     <h1>No content set</h1>
 
     {% endblock %}
+    {% block main_content %}{% endblock %}
 </body>
 </html>
