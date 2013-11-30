@@ -1,7 +1,7 @@
 from django.db import models
-#from django.forms import ModelForm, TextInput
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
 import os
 import magic
 import logging
@@ -12,7 +12,8 @@ class Project(models.Model):
     """This is a project that is owned by a user and contains many
     UploadedFiles."""
     name = models.CharField(max_length=200)
-
+    #owner = models.ForeignKey(User)
+    
     #def get_absolute_url(self):
     #    return reverse("projects", args=(self.id))
 

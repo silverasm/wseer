@@ -19,6 +19,7 @@ class ProjectForm(ModelForm):
     class Meta:
         model = models.Project
         fields = ['name']
+        exclude = ('user')
 
 class UploadedFileForm(ModelForm):
     #def clean_file(self):

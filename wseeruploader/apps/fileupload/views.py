@@ -9,6 +9,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.conf import settings
 from django.shortcuts import render, get_object_or_404
 from registration.backends.simple.views import RegistrationView
+from django.contrib.auth.decorators import login_required
 import json
 
 import logging
@@ -77,6 +78,7 @@ class UploadedFileDeleteView(DeleteView):
             return HttpResponseRedirect(reverse("fileupload:upload-new",
                 kwargs={'proj_key':proj}))
 
+@login_required
 def ProjectListAndCreate(request):
     form = ProjectForm(request.POST or None)
     if request.method == 'POST':
@@ -97,6 +99,7 @@ class ProjectDelete(DeleteView):
         self.object.delete()
         return HttpResponseRedirect(reverse("fileupload:projects"))
 
+@login_required
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
     context = {"file": f}

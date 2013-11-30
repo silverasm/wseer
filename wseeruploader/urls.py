@@ -6,6 +6,7 @@ from registration.backends.simple.views import RegistrationView as SimpleRegistr
 from wseeruploader.apps.fileupload.forms import *
 from django.contrib.auth import views as auth_views
 
+
 #Override regular registration view so it redirects where we want it
 class RegistrationView(SimpleRegistrationView):
     form_class = BootstrapRegistrationForm
