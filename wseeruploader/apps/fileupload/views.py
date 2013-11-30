@@ -1,15 +1,19 @@
-from django.views.generic import CreateView, DeleteView, ListView, View
+from django.views.generic import CreateView, DeleteView, ListView
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from registration.backends.simple.views import RegistrationView as SimpleRegistrationView
 from wseeruploader.apps.fileupload.models import UploadedFile, Project
-from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm
+from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm, BootstrapRegistrationForm
 import json
 
 import logging
 logger = logging.getLogger("apps.fileupload")
+
+# Javascript views
 
 def response_mimetype(request):
     if "application/json" in request.META['HTTP_ACCEPT']:
@@ -27,7 +31,9 @@ class JSONResponse(HttpResponse):
     def __init__(self,obj='',json_opts={},mimetype="application/json",*args,**kwargs):
         content = simplejson.dumps(obj,**json_opts)
         a = super(JSONResponse,self).__init__(content,mimetype,*args,**kwargs)
-        
+
+# UploadedFile views
+
 class UploadedFileCreateView(CreateView):
     model = UploadedFile
     form_class = UploadedFileForm
@@ -75,6 +81,17 @@ class UploadedFileDeleteView(DeleteView):
                 kwargs={'proj_key':proj}))
 
 @login_required
+def annotate(request, pk):
+    f = get_object_or_404(UploadedFile, pk=pk)
+    context = {"file": f}
+    if f.status is f.STATE_UPLOADED:
+        return render(request, "fileupload/uploadedfile_annotate.html", context)
+    else:
+        return render(request, "fileupload/uploadedfile_process.html", context)
+
+# Project views
+
+@login_required
 def ProjectListAndCreate(request):
     form = ProjectForm(request.POST or None)
     if request.method == 'POST':
@@ -95,11 +112,9 @@ class ProjectDelete(DeleteView):
         self.object.delete()
         return HttpResponseRedirect(reverse("fileupload:projects"))
 
-@login_required
-def annotate(request, pk):
-    f = get_object_or_404(UploadedFile, pk=pk)
-    context = {"file": f}
-    if f.status is f.STATE_UPLOADED:
-        return render(request, "fileupload/uploadedfile_annotate.html", context)
-    else:
-        return render(request, "fileupload/uploadedfile_process.html", context)
+# View to make sure redirects from registration work out okay
+
+class RegistrationView(SimpleRegistrationView):
+    form_class = BootstrapRegistrationForm
+    def get_success_url(self, request, user):
+        return (settings.LOGIN_REDIRECT_URL, (), {})

@@ -1,16 +1,9 @@
 import os
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from django.conf import settings
-from registration.backends.simple.views import RegistrationView as SimpleRegistrationView
 from wseeruploader.apps.fileupload.forms import *
+from wseeruploader.apps.fileupload.views import RegistrationView
 from django.contrib.auth import views as auth_views
-
-#Override regular registration view so it redirects where we want it
-class RegistrationView(SimpleRegistrationView):
-    form_class = BootstrapRegistrationForm
-    def get_success_url(self, request, user):
-        return (settings.LOGIN_REDIRECT_URL, (), {})
 
 admin.autodiscover()
 
