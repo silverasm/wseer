@@ -1,5 +1,13 @@
-{% extends "base.html" %}
+{% extends "base_generic.html" %}
 {% load i18n %}
+
+{% block title %}
+Log Out
+{% endblock %}
+
+{% block header %}
+<h1>Wordseer File Uploader<small> Log Out</small></h1>
+{% endblock %}
 
 {% block content %}
 <p>{% trans "Logged out" %}</p>

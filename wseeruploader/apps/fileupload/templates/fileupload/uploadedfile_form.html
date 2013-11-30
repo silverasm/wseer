@@ -1,79 +1,80 @@
 {% extends "fileupload/base_fileupload.html" %}
 {% load upload_tags %}
 
+{% block title %}
+Files
+{% endblock %}
+
+{% block header %}
+<h1>Wordseer File Uploader<small> {{ request.user.username }}'s files</small></h1>
+{% endblock %}
+
 {% block content %}
-<div class="container">
-    <div class="page-header">
-        <h1>Wordseer File Uploader <small>{{ request.user.username }}'s files<small></h1>
-    </div>
-        <form id="fileupload" method="post" action="."
-            enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="row fileupload-buttonbar">
-                <div class="col-md-7">
-                    <span class="btn btn-primary fileinput-button">
-                        <i class="icon-plus icon-white"></i>
-                        <span>Add files...</span>
-                        <input type="file" name="file" multiple accept=".xml">
-                    </span>
-                    <button type="submit" class="btn btn-success start">
-                        <i class="icon-upload icon-white"></i>
-                        <span>Start upload</span>
-                    </button>
-                    <button type="reset" class="btn btn-warning cancel">
-                        <i class="icon-ban-circle icon-white"></i>
-                        <span>Cancel upload</span>
-                    </button>
-                    <button type="button" class="btn btn-danger delete">
-                        <i class="icon-trash icon-white"></i>
-                        <span>Delete files</span>
-                    </button>
-                    <input type="checkbox" class="toggle">
-               
-                    <div class="span5 fileupload-progress fade">
-                        <div class="progress progress-success progres-striped active">
-                            <div class="bar" style="width:0%"></div>
-                        </div>
-                        <div class="progress-extended">&nbsp;</div>
+    <form id="fileupload" method="post" action="."
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row fileupload-buttonbar">
+            <div class="col-md-7">
+                <span class="btn btn-primary fileinput-button">
+                    <i class="icon-plus icon-white"></i>
+                    <span>Add files...</span>
+                    <input type="file" name="file" multiple accept=".xml">
+                </span>
+                <button type="submit" class="btn btn-success start">
+                    <i class="icon-upload icon-white"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="icon-ban-circle icon-white"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete files</span>
+                </button>
+                <input type="checkbox" class="toggle">
+           
+                <div class="span5 fileupload-progress fade">
+                    <div class="progress progress-success progres-striped active">
+                        <div class="bar" style="width:0%"></div>
                     </div>
+                    <div class="progress-extended">&nbsp;</div>
                 </div>
             </div>
-            <div class="fileupload-loading"></div>
-            <table class="table table-striped"><tbody class="files"
-                data-toggle="modal-gallery" data-target="#modal-gallery">
-            </tbody></table>
-        </form>
-    
-        <div class="fileupload-content">
-            <table class="files"></table>
-            <div class="fileupload-progressbar"></div>
         </div>
-        {% if files %}
-        <h2>Already uploaded</h2>
-        <table class="table table-striped">
-            {% for file in files %}
-            
-            {% if file.project_id == proj %}
-            <tr>
-                <td class="name"><a
-                    href="{% url 'fileupload:annotate' file.id %}">
-                    {{ file.name }}</a></td>
-                <td class="delete">
-                    <a class="btn btn-danger"
-                        href="{% url 'fileupload:upload-delete' pk=file.id proj_key=proj %}"
-                        <i class="icon-trash icon-white"></i>
-                        <span>Delete</span>
-                    </button>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </table>
-        {% endif %}
-    </div>
-    
-</div>
+        <div class="fileupload-loading"></div>
+        <table class="table table-striped"><tbody class="files"
+            data-toggle="modal-gallery" data-target="#modal-gallery">
+        </tbody></table>
+    </form>
 
+    <div class="fileupload-content">
+        <table class="files"></table>
+        <div class="fileupload-progressbar"></div>
+    </div>
+    {% if files %}
+    <h2>Already uploaded</h2>
+    <table class="table table-striped">
+        {% for file in files %}
+        
+        {% if file.project_id == proj %}
+        <tr>
+            <td class="name"><a
+                href="{% url 'fileupload:annotate' file.id %}">
+                {{ file.name }}</a></td>
+            <td class="delete">
+                <a class="btn btn-danger"
+                    href="{% url 'fileupload:upload-delete' pk=file.id proj_key=proj %}"
+                    <i class="icon-trash icon-white"></i>
+                    <span>Delete</span>
+                </button>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+</div>
 {% upload_js %}
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

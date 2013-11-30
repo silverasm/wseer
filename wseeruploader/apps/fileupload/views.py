@@ -1,4 +1,5 @@
-from wseeruploader.apps.fileupload.models import UploadedFile, Project, ProjectForm, UploadedFileForm
+from wseeruploader.apps.fileupload.models import UploadedFile, Project
+from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm
 from django.views.generic import CreateView, DeleteView, ListView, View
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
@@ -103,12 +104,3 @@ def annotate(request, pk):
         return render(request, "fileupload/uploadedfile_annotate.html", context)
     else:
         return render(request, "fileupload/uploadedfile_process.html", context)
-
-
-
-
-class TestRegistrationView(RegistrationView):
-    logger.debug("In TRV")
-    def get_success_url(self, request, user):
-        logger.debug("In gsu")
-        return ("blah", (), {})

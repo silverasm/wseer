@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>WordSeer File Uploader {% block title %}{% endblock %}</title>
+    <title>WordSeer File Uploader: {% block title %}{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Bootstrap CSS Toolkit styles -->
@@ -34,11 +34,18 @@
             <li><a href="{% url 'registration_register' %}">Register</a></li>
         </ul>
     </nav>
-    {% block content %}
+    <div class="container">
+        <div class="page-header">
+            {% block header %}
+                <h1>Wordseer File Uploader</h1>
+            {% endblock %}
+        </div>
+        {% block content %}
 
-    <h1>No content set</h1>
+        <h1>No content set</h1>
 
-    {% endblock %}
-    {% block main_content %}{% endblock %}
+        {% endblock %}
+        {% block main_content %}{% endblock %}
+    </div>
 </body>
 </html>

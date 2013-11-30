@@ -1,11 +1,7 @@
 from django.db import models
 #from django.forms import ModelForm, TextInput
-from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
-import validators
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit
 import os
 import magic
 import logging
@@ -19,20 +15,6 @@ class Project(models.Model):
 
     #def get_absolute_url(self):
     #    return reverse("projects", args=(self.id))
-
-class ProjectForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ProjectForm, self).__init__(*args, **kwargs)
-
-        # If you pass FormHelper constructor a form instance
-        # It builds a default layout with all its fields
-        self.helper = FormHelper(self)
-
-        # You can dynamically adjust your layout
-        self.helper.layout.append(Submit('save', 'New Project'))
-    class Meta:
-        model = Project
-        fields = ['name']
 
 class UploadedFile(models.Model):
     """This represents a file that has been uploaded to the server."""
@@ -77,15 +59,5 @@ class UploadedFile(models.Model):
     #    if not "XML" in magic.from_file(u'/upload/projects/%d' % self.id):
     #        raise ValidationError(u'Not an xml file.')
     
-class UploadedFileForm(forms.ModelForm):
-    #def clean_file(self):
-        #file = self.cleaned_data.get("file", False)
-    #    logger.debug("***File***")
-        #logger.debug(file)
-            
-    class Meta:
-
-        model = UploadedFile
-        exclude = ('project',)
 
     
