@@ -4,6 +4,8 @@ from django.contrib import admin
 from wseeruploader.apps.fileupload.forms import *
 from wseeruploader.apps.fileupload.views import RegistrationView
 from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from django.conf import settings
 
 admin.autodiscover()
 
@@ -37,10 +39,10 @@ urlpatterns = patterns('',
         namespace="fileupload")),
     url(r'^accounts/', include(authpatterns)),
     #url(r'^login/', include('social.apps.django_app.urls', namespace='social')),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-urlpatterns += patterns('',
-        (r'^media/(.*)$', 'django.views.static.serve',
-            {'document_root': os.path.join(os.path.abspath(
-                os.path.dirname(__file__)), 'media')}),
-)
+#urlpatterns += patterns('',
+#        (r'^media/(.*)$', 'django.views.static.serve',
+#            {'document_root': os.path.join(os.path.abspath(
+#                os.path.dirname(__file__)), 'media')}),
+#)

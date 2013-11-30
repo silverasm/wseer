@@ -57,6 +57,9 @@ class UploadedFile(models.Model):
         self.file.delete(False)
         super(UploadedFile, self).delete(*args, **kwargs)
 
+    def get_path(self):
+        return file.url
+    
     def get_absolute_url(self):
         return u'/upload/projects/%d' % self.id
 

@@ -9,7 +9,6 @@ from registration.backends.simple.views import RegistrationView as SimpleRegistr
 from wseeruploader.apps.fileupload.models import UploadedFile, Project
 from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm, BootstrapRegistrationForm
 import json
-
 import logging
 logger = logging.getLogger("apps.fileupload")
 
@@ -83,7 +82,8 @@ class UploadedFileDeleteView(DeleteView):
 @login_required
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
-    context = {"file": f}
+    context = {"fileurl": "/" + f.file.url}
+    
     if f.status is f.STATE_UPLOADED:
         return render(request, "fileupload/uploadedfile_annotate.html", context)
     else:

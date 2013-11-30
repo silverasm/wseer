@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
         <script language="javascript">
             var STATIC_URL = "{{ STATIC_URL|escapejs }}";
-            var XML_FILE="abc.xml";
+            var XML_FILE="{{ fileurl }}";
         </script>
         <script data-main="{{ STATIC_URL }}js/main" src="{{ STATIC_URL }}js/contrib/require-jquery.js"></script>
     </head>
