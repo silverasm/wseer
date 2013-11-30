@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	 <head>
-	 	<link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.min.css">
         <script language="javascript">
             var STATIC_URL = "{{ STATIC_URL|escapejs }}";
             var XML_FILE="{{ fileurl }}";
@@ -11,7 +11,7 @@
     </head>
 
     <body>
-
+    {% include "nav.html" %}
         <div class="header">
             <span class="btn btn-success save">save</span> 
         </div>
@@ -25,7 +25,6 @@
     	</div>
 
         <div id="modal"></div>
-    	
     </body>
 
 </html>

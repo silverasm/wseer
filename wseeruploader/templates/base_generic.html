@@ -15,39 +15,16 @@
     <!--[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 </head>
 <body>
-    <nav class="navbar navbar-default" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">WordSeer Uploader</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li><a href="{% url 'fileupload:projects' %}">Projects</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            {% if user.is_authenticated %}
-            <p class="navbar-text">Signed in as <b>{{ user.username }}</b></p>
-            <li><a href="{% url 'auth_logout' %}">Log Out</a></li>
-            {% else %}
-            <li><a href="{% url 'auth_login' %}">Log In</a></li>
-            <li><a href="{% url 'registration_register' %}">Register</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+    {% include "nav.html" %}
+    {% block container %}
     <div class="container">
+    {% endblock %}
         <div class="page-header">
             {% block header %}
                 <h1>Wordseer File Uploader</h1>
             {% endblock %}
         </div>
         {% block content %}
-
-        <h1>No content set</h1>
 
         {% endblock %}
         {% block main_content %}{% endblock %}
