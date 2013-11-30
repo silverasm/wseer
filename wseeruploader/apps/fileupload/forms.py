@@ -8,7 +8,6 @@ from wseeruploader.apps.fileupload import models
 class ProjectForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
-
         # If you pass FormHelper constructor a form instance
         # It builds a default layout with all its fields
         self.helper = FormHelper(self)

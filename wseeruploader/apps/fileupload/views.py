@@ -95,7 +95,9 @@ def annotate(request, pk):
 def ProjectListAndCreate(request):
     form = ProjectForm(request.POST or None)
     if request.method == 'POST':
-        form.save()
+        proj = form.save(commit=False)
+        proj.owner = request.user
+        proj.save()
 
     # notice this comes after saving the form to pick up new objects
     projects = Project.objects.all()

@@ -5,14 +5,20 @@ from django.contrib.auth.models import User
 import os
 import magic
 import logging
+import pprint
 logger = logging.getLogger("apps.fileupload")
 
+def file_path(instance, filename):
+    logger.debug("Filename")
+    a = os.path.join(settings.XML_ROOT, str(instance.project.owner), str(instance.project.name), filename)
+    logger.debug(a)
+    return a
 
 class Project(models.Model):
     """This is a project that is owned by a user and contains many
     UploadedFiles."""
     name = models.CharField(max_length=200)
-    #owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User)
     
     #def get_absolute_url(self):
     #    return reverse("projects", args=(self.id))
@@ -31,8 +37,8 @@ class UploadedFile(models.Model):
     )
     
     status = models.SmallIntegerField(choices=STATES,
-        default=0, blank=True, null=True) 
-    file = models.FileField(upload_to=settings.XML_ROOT)#, validators=[validators.validate_xml])
+        default=0, blank=True, null=True)
+    file = models.FileField(upload_to=file_path)#, validators=[validators.validate_xml])
     project = models.ForeignKey(Project)
     
     def __unicode__(self):

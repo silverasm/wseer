@@ -16,5 +16,4 @@ Todo
 
 * Link projects to users
 * Add in annotation code
-* directory for users, and for projects
 * second login
