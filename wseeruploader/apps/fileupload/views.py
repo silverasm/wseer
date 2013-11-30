@@ -1,15 +1,11 @@
-from wseeruploader.apps.fileupload.models import UploadedFile, Project
-from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm
 from django.views.generic import CreateView, DeleteView, ListView, View
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import simplejson
 from django.core.urlresolvers import reverse
-from django.views.generic.detail import SingleObjectMixin
-from django.conf import settings
-from django.shortcuts import render, get_object_or_404
-from registration.backends.simple.views import RegistrationView
 from django.contrib.auth.decorators import login_required
+from wseeruploader.apps.fileupload.models import UploadedFile, Project
+from wseeruploader.apps.fileupload.forms import ProjectForm, UploadedFileForm
 import json
 
 import logging

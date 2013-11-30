@@ -1,10 +1,9 @@
 from django.forms import ModelForm
+from django.contrib.auth import forms as authforms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
-from wseeruploader.apps.fileupload import models
 from registration.forms import RegistrationForm
-from django.contrib.auth import forms as authforms
-
+from wseeruploader.apps.fileupload import models
 
 class ProjectForm(ModelForm):
     def __init__(self, *args, **kwargs):

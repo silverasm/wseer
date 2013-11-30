@@ -15,7 +15,6 @@ Todo
 ----
 
 * Link projects to users
-* Get registration working
 * Add in annotation code
 * directory for users, and for projects
 * second login
