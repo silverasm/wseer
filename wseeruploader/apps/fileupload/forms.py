@@ -1,9 +1,11 @@
 from django.forms import ModelForm
 from django.contrib.auth import forms as authforms
+from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
 from registration.forms import RegistrationForm
 from wseeruploader.apps.fileupload import models
+import magic
 
 class ProjectForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -20,10 +22,12 @@ class ProjectForm(ModelForm):
         exclude = ('user')
 
 class UploadedFileForm(ModelForm):
-    #def clean_file(self):
-        #file = self.cleaned_data.get("file", False)
-    #    logger.debug("***File***")
-        #logger.debug(file)
+    def clean_file(self):
+        file = self.cleaned_data.get("file", False)
+        filetype = magic.from_buffer(file.read())
+        if not "XML" in filetype:
+            raise ValidationError("File is not XML.")
+        return file
             
     class Meta:
         model = models.UploadedFile

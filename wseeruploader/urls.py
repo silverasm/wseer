@@ -38,6 +38,6 @@ urlpatterns = patterns('',
     url(r'^upload/', include('wseeruploader.apps.fileupload.urls',
         namespace="fileupload")),
     url(r'^accounts/', include(authpatterns)),
-    #url(r'^login/', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^login/', include('social.apps.django_app.urls', namespace='social')),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
