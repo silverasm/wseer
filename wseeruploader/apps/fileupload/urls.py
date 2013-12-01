@@ -1,16 +1,7 @@
 from django.conf.urls import patterns, include, url
-#from django.contrib.auth.models import User
-#from django.conf import settings
-#from django.contrib.auth import authenticate
-#from django.contrib.auth import login
-#from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-#from wseeruploader.apps.fileupload.views import (UploadedFileCreateView,
-#    UploadedFileDeleteView, ProjectDelete)
 from wseeruploader.apps.fileupload import views
-
-
 
 urlpatterns = patterns('',
     url(r'^projects/$', views.ProjectListAndCreate, name="projects"),
