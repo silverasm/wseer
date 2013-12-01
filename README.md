@@ -14,5 +14,3 @@ Dependencies
 Todo
 ----
 
-* Add in annotation code
-* second login
