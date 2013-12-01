@@ -62,6 +62,13 @@ Files
             <td class="name"><a
                 href="{% url 'fileupload:annotate' file.id %}">
                 {{ file.name }}</a></td>
+            <td>
+                {% if file.status == file.STATE_UPLOADED %}
+                <a class="btn btn-primary" href="{% url 'fileupload:process' file.id %}">Submit for Processing</a>
+                {% else %}
+                <a class="btn btn-primary" disabled="disabled">Submitted</a>
+                {% endif %}
+            </td>
             <td class="delete">
                 <a class="btn btn-danger"
                     href="{% url 'fileupload:upload-delete' pk=file.id proj_key=proj %}"

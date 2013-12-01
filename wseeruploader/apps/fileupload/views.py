@@ -62,6 +62,12 @@ class UploadedFileCreateView(CreateView):
         context['proj'] = int(self.kwargs["proj_key"])
         return context
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user == Project.objects.get(id=self.kwargs['proj_key']).owner:
+                return HttpResponseRedirect(reverse("fileupload:projects"))
+        return super(UploadedFileCreateView, self).dispatch(request, *args, **kwargs)
+
+
 class UploadedFileDeleteView(DeleteView):
     model = UploadedFile
 
@@ -79,15 +85,41 @@ class UploadedFileDeleteView(DeleteView):
             return HttpResponseRedirect(reverse("fileupload:upload-new",
                 kwargs={'proj_key':proj}))
 
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user == Project.objects.get(id=self.kwargs['proj_key']).owner:
+            return HttpResponseRedirect(reverse("fileupload:projects"))
+        return super(UploadedFileDeleteView, self).dispatch(request, *args, **kwargs)
+
 @login_required
 def annotate(request, pk):
     f = get_object_or_404(UploadedFile, pk=pk)
     context = {"fileurl": "/" + f.file.url}
+
+    if not request.user == UploadedFile.objects.get(id=pk).project.owner:
+        return HttpResponseRedirect(reverse("fileupload:projects"))
     
     if f.status is f.STATE_UPLOADED:
         return render(request, "fileupload/uploadedfile_annotate.html", context)
     else:
         return render(request, "fileupload/uploadedfile_process.html", context)
+
+@login_required
+def process(request, pk):
+    f = get_object_or_404(UploadedFile, pk=pk)
+    
+    if not request.user == UploadedFile.objects.get(id=pk).project.owner:
+        return HttpResponseRedirect(reverse("fileupload:projects"))
+            
+    context = {"fileurl": "/" + f.file.url}
+    
+    if f.status is f.STATE_UPLOADED:
+        f.status = f.STATE_PROCESSING
+        f.save()
+        return render(request, "fileupload/uploadedfile_process.html", context)
+        
+    else:
+        return HttpResponseRedirect(reverse("fileupload:upload-new",
+                kwargs={'proj_key':self.kwargs["proj_key"]}))
 
 # Project views
 
@@ -113,6 +145,12 @@ class ProjectDelete(DeleteView):
             upfile.delete()
         self.object.delete()
         return HttpResponseRedirect(reverse("fileupload:projects"))
+        
+    def dispatch(self, request, *args, **kwargs):
+        if not self.request.user == Project.objects.get(id=self.kwargs['proj_key']).owner:
+            return HttpResponseRedirect(reverse("fileupload:projects"))
+        return super(ProjectDeleteView, self).dispatch(request, *args, **kwargs)
+  
 
 # View to make sure redirects from registration work out okay
 

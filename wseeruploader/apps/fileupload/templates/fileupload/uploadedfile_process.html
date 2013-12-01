@@ -1,20 +1,15 @@
 {% extends "base_generic.html" %}
 
+{% block title %}
+File processing
+{% endblock %}
+
+{% block header %}
+<h1>Processing {{ file.name }}</h1>
+{% endblock %}
+
+
+
 {% block content %}
-<div class="page-header">
-    <h1>Annotate {{ file.name }}</h1>
-</div>
-{% if file.status == 0 %}
-    <p>File must be annotated</p>
-    
-    <button type="submit" class="btn btn-primary start"><i class="icon-hdd icon-white"></i> Submit</button>
-{% elif file.status == 1 %}
-    <p>File must be submitted</p>
-    <button type="submit" class="btn btn-primary start"><i class="icon-ok icon-white"></i> Submit</button>
-{% elif file.status == 2 %}
-    <p>File is processing</p>
-{% elif file.status == 3 %}
-    <p>File is finished</p>
-{% endif %}
-<p>Something will happen here</p>
+<p>File has been submitted for processing.</p>
 {% endblock %}
